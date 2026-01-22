@@ -4,7 +4,9 @@ module(
 )
 
 bazel_dep(name = "rules_python", version = "1.8.1")
-
+bazel_dep(name = "rules_oci", version = "2.2.7")
+bazel_dep(name = "rules_pkg", version = "1.2.0")
+bazel_dep(name = "platforms", version = "1.0.0")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.11")
@@ -17,3 +19,12 @@ pip.parse(
 )
 use_repo(pip, "pypi_deps")
 
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "python_base",
+    image = "python",
+    tag = "3.11-slim",
+    platforms = ["linux/amd64", "linux/arm64/v8"],
+)
+use_repo(oci, "python_base", "python_base_linux_amd64")

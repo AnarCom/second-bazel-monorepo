@@ -1,4 +1,6 @@
 load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 
 py_binary(
     name = "hello_world_with_deps",
@@ -7,4 +9,24 @@ py_binary(
     deps = [
         "@pypi_deps//cowsay",
     ],
+)
+
+pkg_tar(
+    name = "hello_world_with_deps_tar",
+    srcs = [":hello_world_with_deps"],
+    include_runfiles = True,
+    package_dir = "/app", 
+)
+
+oci_image(
+    name = "app_image",
+    base = "@python_base",
+    tars = [":hello_world_with_deps_tar"],
+    entrypoint = ["/app/hello_world_with_deps"]
+)
+
+oci_load(
+    name = "app_image_load",
+    image = ":app_image",
+    repo_tags = ["hello_world_test:latest"],
 )
