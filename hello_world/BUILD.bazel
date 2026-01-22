@@ -1,0 +1,10 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
+py_binary(
+    name = "hello_world_with_deps",
+    srcs = glob(["src/**/*.py"]),
+    main = "src/main.py",
+    deps = [
+        "@pypi_deps//cowsay",
+    ],
+)
