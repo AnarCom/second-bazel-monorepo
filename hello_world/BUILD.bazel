@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library", "py_pytest_main")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 
@@ -29,4 +29,22 @@ oci_load(
     name = "app_image_load",
     image = ":app_image",
     repo_tags = ["hello_world_test:latest"],
+)
+
+py_image_layer(
+    name = "second_hello_world_layer",
+    binary = ":hello_world_with_deps",
+)
+
+oci_image(
+    name = "second_docker_image",
+    base = "@python_base",
+    entrypoint = ["/hello_world/hello_world_with_deps"],
+    tars = [":second_hello_world_layer"],
+)
+
+oci_load(
+    name = "second_docker_image_load",
+    image = ":second_docker_image",
+    repo_tags = ["second_hello_world_test:latest"],
 )
