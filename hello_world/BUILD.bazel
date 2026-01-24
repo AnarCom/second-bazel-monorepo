@@ -11,25 +11,6 @@ py_binary(
     ],
 )
 
-pkg_tar(
-    name = "hello_world_with_deps_tar",
-    srcs = [":hello_world_with_deps"],
-    include_runfiles = True,
-    package_dir = "/app", 
-)
-
-oci_image(
-    name = "app_image",
-    base = "@python_base",
-    tars = [":hello_world_with_deps_tar"],
-    entrypoint = ["/app/hello_world_with_deps"]
-)
-
-oci_load(
-    name = "app_image_load",
-    image = ":app_image",
-    repo_tags = ["hello_world_test:latest"],
-)
 
 py_image_layer(
     name = "second_hello_world_layer",
@@ -38,7 +19,7 @@ py_image_layer(
 
 oci_image(
     name = "second_docker_image",
-    base = "@python_base",
+    base = "@ubuntu",
     entrypoint = ["/hello_world/hello_world_with_deps"],
     tars = [":second_hello_world_layer"],
 )

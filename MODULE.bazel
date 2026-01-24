@@ -23,9 +23,10 @@ use_repo(pip, "pypi_deps")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
-    name = "python_base",
+    name = "ubuntu",
     image = "python",
     tag = "3.11-slim",
-    platforms = ["linux/amd64", "linux/arm64/v8"],
+    platforms = ["linux/arm64/v8"],
 )
-use_repo(oci, "python_base", "python_base_linux_amd64")
+
+use_repo(oci, "ubuntu")
