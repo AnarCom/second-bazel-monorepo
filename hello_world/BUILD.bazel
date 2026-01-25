@@ -11,7 +11,6 @@ py_binary(
     ],
 )
 
-
 py_image_layer(
     name = "second_hello_world_layer",
     binary = ":hello_world_with_deps",
@@ -19,7 +18,7 @@ py_image_layer(
 
 oci_image(
     name = "second_docker_image",
-    base = "@ubuntu",
+    base = "@ubuntu",  # python:3.11-slim
     entrypoint = ["/hello_world/hello_world_with_deps"],
     tars = [":second_hello_world_layer"],
 )

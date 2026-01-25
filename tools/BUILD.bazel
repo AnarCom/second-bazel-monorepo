@@ -1,0 +1,35 @@
+load("@rules_python//python:defs.bzl", "py_runtime", "py_runtime_pair")
+
+py_runtime(
+    name = "mac_python",
+    interpreter_path = "/opt/homebrew/bin/python3",
+    python_version = "PY3",
+)
+
+py_runtime(
+    name = "linux_python",
+    interpreter_path = "/usr/local/bin/python3",
+    python_version = "PY3",
+)
+
+py_runtime_pair(
+    name = "mac_python_pair",
+    py3_runtime = ":mac_python",
+)
+
+py_runtime_pair(
+    name = "linux_python_pair",
+    py3_runtime = ":linux_python",
+)
+
+toolchain(
+    name = "mac_python_toolchain",
+    toolchain_type = "@bazel_tools//tools/python:toolchain_type",
+    toolchain = ":mac_python_pair",
+)
+
+toolchain(
+    name = "linux_python_toolchain",
+    toolchain_type = "@bazel_tools//tools/python:toolchain_type",
+    toolchain = ":linux_python_pair",
+)
