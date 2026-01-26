@@ -26,10 +26,18 @@ toolchain(
     name = "mac_python_toolchain",
     toolchain_type = "@bazel_tools//tools/python:toolchain_type",
     toolchain = ":mac_python_pair",
+    target_compatible_with = [
+        "@platforms//cpu:arm64",
+        "@platforms//os:macos",
+    ],
 )
 
 toolchain(
     name = "linux_python_toolchain",
     toolchain_type = "@bazel_tools//tools/python:toolchain_type",
     toolchain = ":linux_python_pair",
+    target_compatible_with = [
+        "@platforms//cpu:aarch64",
+        "@platforms//os:linux",
+    ],
 )
