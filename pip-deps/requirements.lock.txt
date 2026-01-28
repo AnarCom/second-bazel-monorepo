@@ -6,3 +6,13 @@
 #
 cowsay==6.1
     # via -r pip-deps/requirements.txt
+iniconfig==2.3.0
+    # via pytest
+packaging==26.0
+    # via pytest
+pluggy==1.6.0
+    # via pytest
+pygments==2.19.2
+    # via pytest
+pytest==9.0.2
+    # via -r pip-deps/requirements.txt
