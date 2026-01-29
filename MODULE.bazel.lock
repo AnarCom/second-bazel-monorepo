@@ -581,6 +581,26 @@
         "recordedRepoMappingEntries": []
       }
     },
+    "@@rules_mypy+//mypy:types.bzl%types": {
+      "general": {
+        "bzlTransitiveDigest": "NRCQLKlh6DMNV8O7wtrrgFwoxCrepDJ64vJWgl4xKIo=",
+        "usagesDigest": "tGQiB1HAK87d48Zx7qhPa2zZD2CYriOepPxMTE8IFWY=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "pip_types": {
+            "repoRuleId": "@@rules_mypy+//mypy/private:types.bzl%generate",
+            "attributes": {
+              "pip_requirements": "@@rules_python++pip+pypi_deps//:requirements.bzl",
+              "requirements_txt": "@@//pip-deps:requirements.lock.txt",
+              "exclude_requirements": []
+            }
+          }
+        },
+        "recordedRepoMappingEntries": []
+      }
+    },
     "@@rules_oci+//oci:extensions.bzl%oci": {
       "general": {
         "bzlTransitiveDigest": "MqqMuBxdvDdGLw2o+Y+Zy9gLUejOe3tB3rWxgGfNwcc=",
