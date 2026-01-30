@@ -1,0 +1,43 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library", "py_image_layer")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+
+py_library(
+    name = "server_lib",
+    srcs = glob(["src/**/*.py"]),
+    deps = [
+        "//server/calc_lib:calc_lib",
+        "@pypi_deps//fastapi",
+        "@pypi_deps//pydantic",
+        "@pypi_deps//uvicorn",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "server_app",
+    srcs = ["main.py"],
+    main = "main.py",
+    deps = [
+        ":server_lib", 
+        "@pypi_deps//uvicorn",
+        "@pypi_deps//pydantic",
+    ],
+)
+
+py_image_layer(
+    name = "server_app_layer",
+    binary = ":server_app",
+)
+
+oci_image(
+    name = "third_docker_image",
+    base = "@ubuntu",  # python:3.11-slim
+    entrypoint = ["/server/server/server_app"],
+    tars = [":server_app_layer"],
+)
+
+oci_load(
+    name = "third_docker_image_load",
+    image = ":third_docker_image",
+    repo_tags = ["server_app_test:latest"],
+)
