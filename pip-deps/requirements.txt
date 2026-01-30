@@ -1,2 +1,5 @@
 cowsay
 pytest
+fastapi[standard]
+unicorn
+pydantic
