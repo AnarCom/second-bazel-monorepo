@@ -604,7 +604,7 @@
     "@@rules_oci+//oci:extensions.bzl%oci": {
       "general": {
         "bzlTransitiveDigest": "MqqMuBxdvDdGLw2o+Y+Zy9gLUejOe3tB3rWxgGfNwcc=",
-        "usagesDigest": "B7lTbfqz6jZ3dZHnkLHe+VV9FNE2O/mNLgK7dCIql1E=",
+        "usagesDigest": "Q2/9fLj2R/BXCJ6p64yNT7wWtpxKJpL/6/ejYcWe+qI=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -616,7 +616,7 @@
               "scheme": "https",
               "registry": "index.docker.io",
               "repository": "library/python",
-              "identifier": "3.11-slim",
+              "identifier": "3.13-slim",
               "platform": "linux/amd64",
               "target_name": "ubuntu_linux_amd64",
               "bazel_tags": []
@@ -630,7 +630,7 @@
               "scheme": "https",
               "registry": "index.docker.io",
               "repository": "library/python",
-              "identifier": "3.11-slim",
+              "identifier": "3.13-slim",
               "platforms": {
                 "@@platforms//cpu:x86_64": "@ubuntu_linux_amd64"
               },

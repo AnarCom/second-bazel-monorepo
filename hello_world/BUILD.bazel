@@ -1,4 +1,4 @@
-load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library", "py_pytest_main")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library", "py_pytest_main", "py_pex_binary")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 
@@ -11,16 +11,24 @@ py_binary(
     ],
 )
 
-py_image_layer(
-    name = "second_hello_world_layer",
-    binary = ":hello_world_with_deps",
+py_pex_binary(
+    name = "hello_world_pex",
+    binary=":hello_world_with_deps",
+)
+
+pkg_tar(
+    name = "hello_world_pex_tar",
+    srcs = [":hello_world_pex"],
+    extension = "tar",
 )
 
 oci_image(
     name = "second_docker_image",
-    base = "@ubuntu",  # python:3.11-slim
+    base = "@ubuntu",
     entrypoint = ["/hello_world/hello_world_with_deps"],
-    tars = [":second_hello_world_layer"],
+    tars = [
+        ":hello_world_pex_tar",
+    ],
 )
 
 oci_load(

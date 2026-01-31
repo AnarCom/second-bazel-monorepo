@@ -11,23 +11,23 @@ bazel_dep(name = "aspect_rules_py", version = "1.8.4")
 bazel_dep(name = "rules_mypy", version = "0.40.0")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-# python.toolchain(python_version = "3.14")
+python.toolchain(python_version = "3.13")
 
-register_toolchains(
-    "//tools:mac_python_toolchain",
-    "//tools:linux_python_toolchain",
-)
+# register_toolchains(
+#     "//tools:mac_python_toolchain",
+#     "//tools:linux_python_toolchain",
+# )
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
-    experimental_index_url = "https://pypi.org/simple",
+    # experimental_index_url = "https://pypi.org/simple",
     hub_name = "pypi_deps",
-    python_version = "3.11",
+    python_version = "3.13",
     requirements_lock = "//pip-deps:requirements.lock.txt",
-    target_platforms = [
-        "{os}_{arch}",
-        "linux_x86_64",
-    ],
+    # target_platforms = [
+        # "{os}_{arch}",
+        # "linux_x86_64",
+    # ],
 )
 use_repo(pip, "pypi_deps")
 
@@ -36,7 +36,7 @@ oci.pull(
     name = "ubuntu",
     image = "python",
     platforms = ["linux/amd64"],
-    tag = "3.11-slim",
+    tag = "3.13-slim",
 )
 use_repo(oci, "ubuntu", "ubuntu_linux_amd64")
 
