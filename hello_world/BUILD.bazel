@@ -11,15 +11,9 @@ py_binary(
     ],
 )
 
-py_pex_binary(
-    name = "hello_world_pex",
-    binary=":hello_world_with_deps",
-)
-
-pkg_tar(
-    name = "hello_world_pex_tar",
-    srcs = [":hello_world_pex"],
-    extension = "tar",
+py_image_layer(
+    name="hello_world_image_layer",
+    binary=":hello_world_with_deps"
 )
 
 oci_image(
@@ -27,7 +21,7 @@ oci_image(
     base = "@ubuntu",
     entrypoint = ["/hello_world/hello_world_with_deps"],
     tars = [
-        ":hello_world_pex_tar",
+        ":hello_world_image_layer",
     ],
 )
 
